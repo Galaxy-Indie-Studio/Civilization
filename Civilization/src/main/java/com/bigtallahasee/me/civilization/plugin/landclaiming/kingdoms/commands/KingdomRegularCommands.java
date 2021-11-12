@@ -15,119 +15,146 @@ import java.util.List;
 
 public class KingdomRegularCommands implements TabExecutor {
     Civilization plugin = Civilization.getPlugin(Civilization.class);
-    Economy eco;
+    ChatMethods chatMethods;
 
-    private boolean isDisbandRefundEnabled = plugin.getConfig().getBoolean("");
-    private int maxKingdoms = plugin.getConfig().getInt("Max-Kingdoms-Amount");
-
-    List<String> kingdomNames = new ArrayList<>();
-    private String[] kingdomStatus = {"Peaceful","Neutral","Hostile"};
-    private String alliedKingdom;
-    private String enemyKingdom;
-    private String newKingdomName;
-
-    //kingdom variables
-    private String kingdomName = "None";
-    private String currentKingdomStatus = "None";
-    private List<String> kingdomAlliances = new ArrayList<>();
-    private List<String> kingdomEnemies = new ArrayList<>();
-    private List<String> atWarWith = new ArrayList<>();
-    private int kingdomBankBalance = 0;
-
-    //kingdom economy variables
-    private int amountDeposited;
-    private int amountWithdrawn;
-    private double startKingdomAmount = plugin.getConfig().getDouble("New-Kingdom-Fee");
-
-
-
+    private boolean isKingdomEnabled = plugin.getConfig().getBoolean("Kingdoms-Enabled");
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         Player player = (Player) sender;
-        String name = player.getName();
-        if (player.hasPermission("civilization.default") || player.hasPermission("civilization.*") || player.isOp()){
-            if(args.length <= 0){
+
+        if(player.hasPermission("civilization.default") || player.hasPermission("civilization.*") || player.isOp()){
+            if(isKingdomEnabled){
                 if(command.getName().equals("kingdom")){
-                    if(args[0].equalsIgnoreCase("create")){
-                            createKingdom(player);
-                            plugin.getEconomy().withdrawPlayer(player, startKingdomAmount);
+                    if(args[0].equalsIgnoreCase("found")){
+                        player.sendMessage(ChatColor.LIGHT_PURPLE + "#----------------------------#");
+                        player.sendMessage(ChatColor.LIGHT_PURPLE + "# Dev Note                             #");
+                        player.sendMessage(ChatColor.LIGHT_PURPLE + "#----------------------------#");
+                        player.sendMessage(ChatColor.LIGHT_PURPLE + "This feature is still in development and");
+                        player.sendMessage(ChatColor.LIGHT_PURPLE + "may not do anything or function properly!");
+                        player.sendMessage(ChatColor.LIGHT_PURPLE + "Thank you for you patitence and we will have it available asap!");
+
+                        player.sendMessage(" ");
+                        player.sendMessage("You have created a new Kingdom!");
                     }
-                    if(args[0].equalsIgnoreCase("disband") && isDisbandRefundEnabled){
-                        player.sendMessage("You haved disbanded " + kingdomName);
+                    if(args[0].equalsIgnoreCase("disband")){
+                        player.sendMessage(ChatColor.LIGHT_PURPLE + "#----------------------------#");
+                        player.sendMessage(ChatColor.LIGHT_PURPLE + "# Dev Note                             #");
+                        player.sendMessage(ChatColor.LIGHT_PURPLE + "#----------------------------#");
+                        player.sendMessage(ChatColor.LIGHT_PURPLE + "This feature is still in development and");
+                        player.sendMessage(ChatColor.LIGHT_PURPLE + "may not do anything or function properly!");
+                        player.sendMessage(ChatColor.LIGHT_PURPLE + "Thank you for you patitence and we will have it available asap!");
+
+                        player.sendMessage(" ");
+                        player.sendMessage("You have disbanded this Kingdom!");
+                    }
+                    if(args[0].equalsIgnoreCase("invite")){
+                        Player target = Bukkit.getPlayerExact(args[1]);
+                        if(target instanceof Player) {
+                            if(args[1].equalsIgnoreCase(String.valueOf(target))) {
+                                player.sendMessage(ChatColor.LIGHT_PURPLE + "#----------------------------#");
+                                player.sendMessage(ChatColor.LIGHT_PURPLE + "# Dev Note                             #");
+                                player.sendMessage(ChatColor.LIGHT_PURPLE + "#----------------------------#");
+                                player.sendMessage(ChatColor.LIGHT_PURPLE + "This feature is still in development and");
+                                player.sendMessage(ChatColor.LIGHT_PURPLE + "may not do anything or function properly!");
+                                player.sendMessage(ChatColor.LIGHT_PURPLE + "Thank you for you patitence and we will have it available asap!");
+
+                                player.sendMessage(" ");
+                                player.sendMessage("You have invited that player to your kingdom!");
+                            }
+                        }
+                    }
+                    if(args[0].equalsIgnoreCase("kick")){
+                        Player target = Bukkit.getPlayerExact(args[1]);
+                        if(target instanceof Player) {
+                            player.sendMessage(ChatColor.LIGHT_PURPLE + "#----------------------------#");
+                            player.sendMessage(ChatColor.LIGHT_PURPLE + "# Dev Note                             #");
+                            player.sendMessage(ChatColor.LIGHT_PURPLE + "#----------------------------#");
+                            player.sendMessage(ChatColor.LIGHT_PURPLE + "This feature is still in development and");
+                            player.sendMessage(ChatColor.LIGHT_PURPLE + "may not do anything or function properly!");
+                            player.sendMessage(ChatColor.LIGHT_PURPLE + "Thank you for you patitence and we will have it available asap!");
+
+                            player.sendMessage(" ");
+                            player.sendMessage("You have kicked that player from your Kingdom!");
+                        }
                     }
                     if(args[0].equalsIgnoreCase("bank")){
                         if(args[1].equalsIgnoreCase("withdraw")){
-                            player.sendMessage("You have withdrawn money from the Kingdom's Bank!");
-                            plugin.getEconomy().withdrawPlayer(player, amountWithdrawn);
+                            player.sendMessage(ChatColor.LIGHT_PURPLE + "#----------------------------#");
+                            player.sendMessage(ChatColor.LIGHT_PURPLE + "# Dev Note                             #");
+                            player.sendMessage(ChatColor.LIGHT_PURPLE + "#----------------------------#");
+                            player.sendMessage(ChatColor.LIGHT_PURPLE + "This feature is still in development and");
+                            player.sendMessage(ChatColor.LIGHT_PURPLE + "may not do anything or function properly!");
+                            player.sendMessage(ChatColor.LIGHT_PURPLE + "Thank you for you patitence and we will have it available asap!");
+
+                            player.sendMessage(" ");
+                            player.sendMessage("You have withdrawn money from the Kingdom Bank!");
                         }
                         if(args[1].equalsIgnoreCase("deposit")){
-                            player.sendMessage("You have deposited money into the Kingdom's Bank!");
-                            plugin.getEconomy().depositPlayer(player, amountDeposited);
+                            player.sendMessage(ChatColor.LIGHT_PURPLE + "#----------------------------#");
+                            player.sendMessage(ChatColor.LIGHT_PURPLE + "# Dev Note                             #");
+                            player.sendMessage(ChatColor.LIGHT_PURPLE + "#----------------------------#");
+                            player.sendMessage(ChatColor.LIGHT_PURPLE + "This feature is still in development and");
+                            player.sendMessage(ChatColor.LIGHT_PURPLE + "may not do anything or function properly!");
+                            player.sendMessage(ChatColor.LIGHT_PURPLE + "Thank you for you patitence and we will have it available asap!");
 
+                            player.sendMessage(" ");
+                            player.sendMessage("You have deposited money to the Kingdom Bank!");
                         }
                         if(args[1].equalsIgnoreCase("show")){
-                            player.sendMessage("Kingdom Bank: " + kingdomBankBalance);
-                        }
-                    }
-                    if(args[0].equalsIgnoreCase("list")){
-                        for(int i = 0; i <= maxKingdoms; i++){
-                            if(kingdomNames != null){
-                                player.sendMessage(kingdomNames.get(i));
-                            }
-                            if(kingdomNames == null){
-                                player.sendMessage("There aren't any kingdoms founded yet!");
-                            }
-                        }
-                    }
-                    if(args[0].equalsIgnoreCase("set")){
-                        if(player.hasPermission("civilization.*") || player.isOp()){
-                            if(args[1].equalsIgnoreCase("name")){
-                                player.sendMessage("You have changed the name to your kingdom to " + newKingdomName);
-                            }
-                        }
-                        if(args[1].equalsIgnoreCase("status")){
-                            if(args[2].equalsIgnoreCase("peaceful")){
-                                currentKingdomStatus = kingdomStatus[0];
-                            }
-                            if(args[2].equalsIgnoreCase("neutral")){
-                                currentKingdomStatus = kingdomStatus[1];
-                            }
-                            if(args[2].equalsIgnoreCase("hostile")){
-                                currentKingdomStatus= kingdomStatus[2];
-                            }
-                        }
-                        if(args[1].equalsIgnoreCase("alliance")){
-                            if(args[2].equalsIgnoreCase("add")){
-                                player.sendMessage("You have allied " + alliedKingdom);
-                            }
-                            if(args[2].equalsIgnoreCase("remove")){
-                                player.sendMessage("You have removed " + alliedKingdom + "from you allies list!");
-                            }
-                        }
-                        if(args[1].equalsIgnoreCase("enemy")){
-                            if(args[2].equalsIgnoreCase("add")){
-                                player.sendMessage("You have added " + enemyKingdom + "to your enemies list!");
-                            }
-                            if(args[2].equalsIgnoreCase("remove")){
-                                player.sendMessage("You have removed " + enemyKingdom + "from your enemies list!");
-                            }
+                            player.sendMessage(ChatColor.LIGHT_PURPLE + "#----------------------------#");
+                            player.sendMessage(ChatColor.LIGHT_PURPLE + "# Dev Note                             #");
+                            player.sendMessage(ChatColor.LIGHT_PURPLE + "#----------------------------#");
+                            player.sendMessage(ChatColor.LIGHT_PURPLE + "This feature is still in development and");
+                            player.sendMessage(ChatColor.LIGHT_PURPLE + "may not do anything or function properly!");
+                            player.sendMessage(ChatColor.LIGHT_PURPLE + "Thank you for you patitence and we will have it available asap!");
+
+                            player.sendMessage(" ");
+                            player.sendMessage("Kingdom Name: ");
+                            player.sendMessage("Kingdom Bank Balance: ");
                         }
                     }
                     if(args[0].equalsIgnoreCase("show")){
+                        player.sendMessage(ChatColor.LIGHT_PURPLE + "#----------------------------#");
+                        player.sendMessage(ChatColor.LIGHT_PURPLE + "# Dev Note                             #");
+                        player.sendMessage(ChatColor.LIGHT_PURPLE + "#----------------------------#");
+                        player.sendMessage(ChatColor.LIGHT_PURPLE + "This feature is still in development and");
+                        player.sendMessage(ChatColor.LIGHT_PURPLE + "may not do anything or function properly!");
+                        player.sendMessage(ChatColor.LIGHT_PURPLE + "Thank you for you patitence and we will have it available asap!");
+
+                        player.sendMessage(" ");
                         player.sendMessage("Kingdom Name: ");
-                        player.sendMessage("Kingdom Status: " + currentKingdomStatus);
-                        player.sendMessage("Kingdom Alliances: ");
+                        player.sendMessage("Kingdom Bank Balance: ");
+                        player.sendMessage("Kingdom Allies: ");
                         player.sendMessage("Kingdom Enemies: ");
-                        player.sendMessage("At War With: ");
-                        player.sendMessage("Kingdom Bank: " + kingdomBankBalance);
+                        player.sendMessage("Kingdom Description: ");
+                    }
+                    if(args[0].equalsIgnoreCase("list")){
+                        player.sendMessage(ChatColor.LIGHT_PURPLE + "#----------------------------#");
+                        player.sendMessage(ChatColor.LIGHT_PURPLE + "# Dev Note                             #");
+                        player.sendMessage(ChatColor.LIGHT_PURPLE + "#----------------------------#");
+                        player.sendMessage(ChatColor.LIGHT_PURPLE + "This feature is still in development and");
+                        player.sendMessage(ChatColor.LIGHT_PURPLE + "may not do anything or function properly!");
+                        player.sendMessage(ChatColor.LIGHT_PURPLE + "Thank you for you patitence and we will have it available asap!");
                     }
                     if(args[0].equalsIgnoreCase("help")){
-
+                        player.sendMessage(ChatColor.LIGHT_PURPLE + "#-----------------------------------#");
+                        player.sendMessage(ChatColor.LIGHT_PURPLE + "#    Kingdom Help                                  #");
+                        player.sendMessage(ChatColor.LIGHT_PURPLE + "#-----------------------------------#");
+                        player.sendMessage("/kingdom found [kingdom-name] (Founds a Kingdom with the name you give!)");
+                        player.sendMessage("/kingdom disband [kingdom-name] (Disbands a Kingdom with the name you give!)");
+                        player.sendMessage("/kingdom bank withdraw [amount] (Withdraws money from the Kingdom Bank and deposits it into the players bank!)");
+                        player.sendMessage("/kingdom bank deposit [amount] (Withdraws money from the player and Deposits it into the Kingdom Bank!)");
+                        player.sendMessage("/kingdom bank show (Shows your Kingdom's Bank Balance!)");
+                        player.sendMessage("/kingdom show (Shows your Kingdom's info!)");
+                        player.sendMessage("/kingdom list (Shows all of the Kingdom's that exist on the server!)");
+                        player.sendMessage("/kingdom help (Shows all the commands for this portion of the plugin!)");
                     }
                 }
             }
         }
+
+
 
 
         return false;
@@ -135,7 +162,7 @@ public class KingdomRegularCommands implements TabExecutor {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        List<String> list = Arrays.asList("create", "disband", "bank", "list", "show","help");
+        List<String> list = Arrays.asList("found", "disband", "bank" ,"invite", "kick", "list", "show", "help");
         String input = args[0].toLowerCase();
 
         List<String> completions = null;
@@ -153,19 +180,5 @@ public class KingdomRegularCommands implements TabExecutor {
         }
         return completions;
     }
-
-    public void createKingdom(Player player){
-
-        for(int i = 0; i <= maxKingdoms; i++){
-            if(kingdomName != kingdomNames.get(i)){
-                kingdomNames.add("");
-            }
-            if(kingdomName == kingdomNames.get(i)){
-                player.sendMessage(kingdomName + " already exists! try again");
-            }
-            if(kingdomName == null){
-                return;
-            }
-        }
-    }
 }
+
