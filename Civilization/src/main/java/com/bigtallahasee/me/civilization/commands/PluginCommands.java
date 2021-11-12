@@ -39,40 +39,33 @@ public class PluginCommands implements CommandExecutor {
                         plugin.reloadConfig();
                     }
                     if (args[1].equalsIgnoreCase("player-data")) {
-                        player.sendMessage(ChatColor.LIGHT_PURPLE + "#----------------------------#");
-                        player.sendMessage(ChatColor.LIGHT_PURPLE + "# Dev Note                             #");
-                        player.sendMessage(ChatColor.LIGHT_PURPLE + "#----------------------------#");
-                        player.sendMessage(ChatColor.LIGHT_PURPLE + "This feature is still in development and");
-                        player.sendMessage(ChatColor.LIGHT_PURPLE + "may not do anything or function properly!");
-                        player.sendMessage(ChatColor.LIGHT_PURPLE + "Thank you for you patitence and we will have it available asap!");
+                        player.sendMessage(ChatColor.GREEN + "Player Data File has been reloaded successfully!");
+                        PlayerDataFile.playerDataReload();
 
                     }
                     if (args[1].equalsIgnoreCase("kingdom-data")) {
-                        player.sendMessage(ChatColor.LIGHT_PURPLE + "#----------------------------#");
-                        player.sendMessage(ChatColor.LIGHT_PURPLE + "# Dev Note                             #");
-                        player.sendMessage(ChatColor.LIGHT_PURPLE + "#----------------------------#");
-                        player.sendMessage(ChatColor.LIGHT_PURPLE + "This feature is still in development and");
-                        player.sendMessage(ChatColor.LIGHT_PURPLE + "may not do anything or function properly!");
-                        player.sendMessage(ChatColor.LIGHT_PURPLE + "Thank you for you patitence and we will have it available asap!");
+                        player.sendMessage(ChatColor.GREEN + "Kingdom Data File has been reloaded successfully!");
+                        KingdomDataFile.kingdomDataReload();
 
                     }
                     if (args[1].equalsIgnoreCase("clan-data")) {
-                        player.sendMessage(ChatColor.LIGHT_PURPLE + "#----------------------------#");
-                        player.sendMessage(ChatColor.LIGHT_PURPLE + "# Dev Note                             #");
-                        player.sendMessage(ChatColor.LIGHT_PURPLE + "#----------------------------#");
-                        player.sendMessage(ChatColor.LIGHT_PURPLE + "This feature is still in development and");
-                        player.sendMessage(ChatColor.LIGHT_PURPLE + "may not do anything or function properly!");
-                        player.sendMessage(ChatColor.LIGHT_PURPLE + "Thank you for you patitence and we will have it available asap!");
+                        player.sendMessage(ChatColor.GREEN + "Clan Data File has been reloaded successfully!");
+                        ClanDataFile.clanDataReload();
 
+                    }
+                    if (args[1].equalsIgnoreCase("custom-msgs")) {
+                        player.sendMessage(ChatColor.GREEN + "Custom Msgs File has been reloaded successfully!");
+                        CustomMsgsFile.customMsgsReload();
                     }
                     if (args[1].equalsIgnoreCase("all")) {
                         player.sendMessage(ChatColor.LIGHT_PURPLE + "#----------------------------#");
-                        player.sendMessage(ChatColor.LIGHT_PURPLE + "# Dev Note                             #");
-                        player.sendMessage(ChatColor.LIGHT_PURPLE + "#----------------------------#");
-                        player.sendMessage(ChatColor.LIGHT_PURPLE + "This feature is still in development and");
-                        player.sendMessage(ChatColor.LIGHT_PURPLE + "may not do anything or function properly!");
-                        player.sendMessage(ChatColor.LIGHT_PURPLE + "Thank you for you patitence and we will have it available asap!");
-
+                        player.sendMessage(ChatColor.RED + "Reloading all data files!!! Please Wait!");
+                        plugin.reloadConfig();
+                        PlayerDataFile.playerDataReload();
+                        KingdomDataFile.kingdomDataReload();
+                        ClanDataFile.clanDataReload();
+                        CustomMsgsFile.customMsgsReload();
+                        player.sendMessage(ChatColor.GREEN + "All Data Files have been reloaded successfully!");
                     }
                 }
                 if (args[0].equalsIgnoreCase("plugin")) {
