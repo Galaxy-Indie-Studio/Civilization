@@ -24,7 +24,7 @@ New-Clan-Fee: 500.0
 Clan-Disband-Refund-Enabled: true
 
 
-Clan-Name: "TEMPORARY PARAMETER"
+Clan-Name: 'TEMPORARY PARAMETERS'
 
 
 
@@ -49,9 +49,18 @@ Disband-Refund-Amount: ' '
 #-----------------------------------------------------------------------------
 Character-Card-Enabled: true
 
+Server- Allegiances:
+  - 'Air'
+  - 'Water'
+  - 'Earth'
+  - 'Fire'
 
-
-
+Server-Races:
+  - 'Human'
+  - ''
+  - ''
+  - ''
+  - ''
 
 
 #-----------------------------------------------------------------------------
@@ -59,9 +68,12 @@ Character-Card-Enabled: true
 #-----------------------------------------------------------------------------
 Bounties-Enabled: true
 
+Server-Bounty-Hunter-Perm: '' #Make sure to fill out, This is used in Broadcast Msgs, Player Msgs, Etc!)
 
 
+#-----------------------------------------------------------------------------
+# Career Settings
+#-----------------------------------------------------------------------------
+Careers-Enabled: true
 
-
-
-
+#-----------------------------------------------------------------------------
