@@ -13,12 +13,15 @@ import java.util.Collections;
 import java.util.List;
 
 public class InteractionChatRPCommands implements TabExecutor {
-    Civilization plugin = Civilization.getPlugin(Civilization.class);
+     Civilization plugin = Civilization.getPlugin(Civilization.class);
 
     private String eatMsg = plugin.getConfig().get("Eat-Msg").toString();
     private String drinkMsg = plugin.getConfig().get("Drink-Msg").toString();
-    private String waveMsg = plugin.getConfig().get("Wave-Msg").toString();
-    private String danceMsg = plugin.getConfig().get("Dance-Msg").toString();
+
+    private String waveMsg = plugin.getConfig().getString("Wave-Msg");
+    private String waveBroadcastMsg = plugin.getConfig().getString("Wave-Broadcast-Msg");
+    private String danceMsg = plugin.getConfig().getString("Dance-Msg");
+    private String danceBroadcastMsg = plugin.getConfig().getString("Dance-Broadcast-Msg");
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -33,11 +36,11 @@ public class InteractionChatRPCommands implements TabExecutor {
                 }
                 if(args[0].equalsIgnoreCase("wave")){
                     player.sendMessage(waveMsg);
-                    Bukkit.broadcast(player.getName() + "is waving!", "civilization.rp");
+                    Bukkit.broadcast(ChatColor.LIGHT_PURPLE + player.getName() + " " + ChatColor.AQUA + waveBroadcastMsg, "civilization.rp");
                 }
                 if(args[0].equalsIgnoreCase("dance")){
-                    player.sendMessage(danceMsg);
-                    Bukkit.broadcast(player.getName() + "started busting a move!", "civilization.rp");
+                    player.sendMessage(ChatColor.AQUA + danceMsg);
+                    Bukkit.broadcast( ChatColor.LIGHT_PURPLE + player.getName() + " " + ChatColor.AQUA +danceMsg, "civilization.rp");
                 }
             }
         }
