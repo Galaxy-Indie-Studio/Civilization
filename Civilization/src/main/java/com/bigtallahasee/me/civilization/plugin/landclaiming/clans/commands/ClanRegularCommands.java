@@ -23,40 +23,85 @@ public class ClanRegularCommands implements TabExecutor {
     //Clan info
     private String clanName = plugin.getConfig().get("Clan-Name").toString();
 
+    ChatMethods chatMethods;
 
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         Player player = (Player) sender;
         int maxClanMembers =plugin.getConfig().getInt("Max-Clan-Members");
-        Player target = getServer().getPlayer(args[1]);
-
 
 
         if(player.hasPermission("civilization.default") || player.hasPermission("civilization.*") || player.isOp()){
             if(command.getName().equals("clan")){
-                if(args[0].equalsIgnoreCase("start")){
+                if(args[0].equalsIgnoreCase("found")){
+                    player.sendMessage(ChatColor.LIGHT_PURPLE + "#----------------------------#");
+                    player.sendMessage(ChatColor.LIGHT_PURPLE + "# Dev Note                             #");
+                    player.sendMessage(ChatColor.LIGHT_PURPLE + "#----------------------------#");
+                    player.sendMessage(ChatColor.LIGHT_PURPLE + "This feature is still in development and");
+                    player.sendMessage(ChatColor.LIGHT_PURPLE + "may not do anything or function properly!");
+                    player.sendMessage(ChatColor.LIGHT_PURPLE + "Thank you for you patitence and we will have it available asap!");
 
+                    player.sendMessage(" ");
+                    player.sendMessage("You have founded a new clan named " + clanName);
                 }
                 if(args[0].equalsIgnoreCase("invite")){
-                    if(!notInClan){
-                        player.sendMessage("You must been in a clan!");
-                        notInClan = false;
+                    Player target = Bukkit.getPlayerExact(args[1]);
+                    if(target instanceof Player) {
+                        if(args[1].equalsIgnoreCase(String.valueOf(target))) {
+                            player.sendMessage(ChatColor.LIGHT_PURPLE + "#----------------------------#");
+                            player.sendMessage(ChatColor.LIGHT_PURPLE + "# Dev Note                             #");
+                            player.sendMessage(ChatColor.LIGHT_PURPLE + "#----------------------------#");
+                            player.sendMessage(ChatColor.LIGHT_PURPLE + "This feature is still in development and");
+                            player.sendMessage(ChatColor.LIGHT_PURPLE + "may not do anything or function properly!");
+                            player.sendMessage(ChatColor.LIGHT_PURPLE + "Thank you for you patitence and we will have it available asap!");
+
+                            player.sendMessage(" ");
+                            player.sendMessage("You have invited them to the clan!");
+                        }
+                    }else{
+                        player.sendMessage("You must enter a real player!");
                     }
-                    if(args[1].equalsIgnoreCase(target.toString())){
-                        target.sendMessage("You have been invited to join " + clanName);
+                }
+                if(args[0].equalsIgnoreCase("kick")){
+                    Player target = Bukkit.getPlayerExact(args[1]);
+                    if(target instanceof Player) {
+                        player.sendMessage(ChatColor.LIGHT_PURPLE + "#----------------------------#");
+                        player.sendMessage(ChatColor.LIGHT_PURPLE + "# Dev Note                             #");
+                        player.sendMessage(ChatColor.LIGHT_PURPLE + "#----------------------------#");
+                        player.sendMessage(ChatColor.LIGHT_PURPLE + "This feature is still in development and");
+                        player.sendMessage(ChatColor.LIGHT_PURPLE + "may not do anything or function properly!");
+                        player.sendMessage(ChatColor.LIGHT_PURPLE + "Thank you for you patitence and we will have it available asap!");
+
+                        player.sendMessage(" ");
+                        player.sendMessage("You have kicked that player from your Clan!");
+                    }else{
+                        player.sendMessage("You must enter a real player!");
                     }
                 }
                 if(args[0].equalsIgnoreCase("disband")){
+                    player.sendMessage(ChatColor.LIGHT_PURPLE + "#----------------------------#");
+                    player.sendMessage(ChatColor.LIGHT_PURPLE + "# Dev Note                             #");
+                    player.sendMessage(ChatColor.LIGHT_PURPLE + "#----------------------------#");
+                    player.sendMessage(ChatColor.LIGHT_PURPLE + "This feature is still in development and");
+                    player.sendMessage(ChatColor.LIGHT_PURPLE + "may not do anything or function properly!");
+                    player.sendMessage(ChatColor.LIGHT_PURPLE + "Thank you for you patitence and we will have it available asap!");
+
+                    player.sendMessage(" ");
                     player.sendMessage("You have disbanded the " + clanName);
                 }
                 if(args[0].equalsIgnoreCase("list")){
-
+                    player.sendMessage(ChatColor.LIGHT_PURPLE + "#----------------------------#");
+                    player.sendMessage(ChatColor.LIGHT_PURPLE + "# Dev Note                             #");
+                    player.sendMessage(ChatColor.LIGHT_PURPLE + "#----------------------------#");
+                    player.sendMessage(ChatColor.LIGHT_PURPLE + "This feature is still in development and");
+                    player.sendMessage(ChatColor.LIGHT_PURPLE + "may not do anything or function properly!");
+                    player.sendMessage(ChatColor.LIGHT_PURPLE + "Thank you for you patitence and we will have it available asap!");
                 }
                 if(args[0].equalsIgnoreCase("help")){
-                    player.sendMessage("#-----------------------------------#");
-                    player.sendMessage("#    Clan Help                                  #");
-                    player.sendMessage("#-----------------------------------#");
+                    player.sendMessage(ChatColor.LIGHT_PURPLE + "#-----------------------------------#");
+                    player.sendMessage(ChatColor.LIGHT_PURPLE + "#    Clan Help                                  #");
+                    player.sendMessage(ChatColor.LIGHT_PURPLE + "#-----------------------------------#");
                     player.sendMessage("/clan start [name]: This will start a clan with the entered name!");
                     player.sendMessage("/clan invite [MCUSERNAME]: This will invite the targeted MC-USER to your clan!");
                     player.sendMessage("/clan disband:  This will disband the clan that you are in!");
@@ -69,7 +114,7 @@ public class ClanRegularCommands implements TabExecutor {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        List<String> list = Arrays.asList("found", "disband", "invite", "list", "help");
+        List<String> list = Arrays.asList("found", "disband", "invite", "kick", "list", "help");
         String input = args[0].toLowerCase();
 
         List<String> completions = null;
@@ -95,3 +140,4 @@ public class ClanRegularCommands implements TabExecutor {
         return;
     }
 }
+
