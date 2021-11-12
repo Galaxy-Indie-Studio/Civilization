@@ -16,19 +16,40 @@ public final class Civilization extends JavaPlugin {
     private static Economy econ = null;
     private static Permission perms = null;
 
+
+
     @Override
     public void onEnable() {
 
         getServer().getPluginManager().registerEvents(new PlayerJoinEvent(),this);
+        getServer().getPluginManager().registerEvents(new ChatListeners(), this);
+        getServer().getPluginManager().registerEvents(new PlayerSleepEvent(), this);
+        getServer().getPluginManager().registerEvents(new PlayerDeathEvents(), this);
 
         //Regular player commands
         getCommand("interact").setExecutor(new InteractionChatRPCommands());
         getCommand("interact").setTabCompleter(new InteractionChatRPCommands());
+
         getCommand("char").setExecutor(new CharacterCommands());
-        getCommand("kingdom").setExecutor(new KingdomRegularCommands());
+        getCommand("char").setTabCompleter(new CharacterCommands());
+
+        getCommand("kingdom").setExecutor(new KingdomRegualarCommands());
+        getCommand("kingdom").setTabCompleter(new KingdomRegualarCommands());
+
         getCommand("clan").setExecutor(new ClanRegularCommands());
+        getCommand("clan").setTabCompleter(new ClanRegularCommands());
+
+        getCommand("careers").setExecutor(new RegularCareerCommands());
+        getCommand("careers").setTabCompleter(new RegularCareerCommands());
+
+        //Special Career Commands
+        getCommand("bounty-hunter").setExecutor(new SpecialBountyHunterCommands());
+        getCommand("bounty-hunter").setExecutor(new SpecialBountyHunterCommands());
 
         //Admin commands
+
+        getCommand("civilization").setExecutor(new PluginCommands());
+        getCommand("civilization").setTabCompleter(new PluginCommands());
 
 
 
@@ -41,6 +62,33 @@ public final class Civilization extends JavaPlugin {
 
         getConfig().options().copyDefaults();
         saveDefaultConfig();
+
+        PlayerDataFile.playerDataSetup();;
+        PlayerDataFile.getPlayerData().options().copyDefaults(true);
+        PlayerDataFile.playerDataSave();
+
+        KingdomDataFile.kingdomDataSetup();
+        KingdomDataFile.getkingdomData().options().copyDefaults(true);
+        KingdomDataFile.kingdomDataSave();
+
+        ClanDataFile.clanDataSetup();
+        ClanDataFile.getClanData().options().copyDefaults(true);
+        ClanDataFile.clanDataSave();
+
+        //Update Checker
+        new UpdateChecker(this, 97540).getLatestVersion(version -> {
+            if (this.getDescription().getVersion().equalsIgnoreCase(version)) {
+                Logger.log(Logger.LogLevel.SUCCESS, ("Civilization is up to date!"));
+            } else {
+                Logger.log(Logger.LogLevel.OUTLINE, "*********************************************************************");
+                Logger.log(Logger.LogLevel.WARNING, ("Civilization is outdated!"));
+                Logger.log(Logger.LogLevel.WARNING, ("Newest version: " + version));
+                Logger.log(Logger.LogLevel.WARNING, ("Your version: " + Settings.VERSION));
+                Logger.log(Logger.LogLevel.WARNING, ("Please Update Here: " + Settings.PLUGIN_URL + UpdateChecker.resourceId));
+                Logger.log(Logger.LogLevel.OUTLINE, "*********************************************************************");
+            }
+        });
+
     }
 
     private boolean setupEconomy() {
