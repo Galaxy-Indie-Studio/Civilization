@@ -1,0 +1,18 @@
+name: Civilization
+version: '${project.version}'
+main: com.bigtallahasee.me.civilization.Civilization
+api-version: 1.17
+authors: [ BigTallahasee ]
+commands:
+  char:
+    description: Allow you to set various rp character details
+    aliases: [character, rpcard, id]
+  interact:
+    description: This will allow you to do
+    aliases: [int, i]
+  kingdom:
+    description: Allows you to perform various kingdom commands
+    aliases: [k, nation, empire]
+  clan:
+    description: Allows you to perform various clan commands
+    aliases: [guild, fac, crew]
